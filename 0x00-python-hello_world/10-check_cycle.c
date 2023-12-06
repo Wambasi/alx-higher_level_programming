@@ -1,29 +1,31 @@
 #include <stdlib.h>
 #include "lists.h"
-// typedef struct listint_s {
-    // int n;
-    // struct listint_s *next;
-// } listint_t;
 
-void free_listint(listint_t *head)
-{
-}
-
+/**
+ * check_cycle - Checks if a singly-linked list contains a cycle.
+ * @list: A singly-linked list.
+ *
+ * Return: If there is no cycle - 0.
+ *         If there is a cycle - 1.
+ */
 int check_cycle(listint_t *list)
 {
-  listint_t *slow = list;
-  listint_t *fast = list;
+	listint_t *slow, *fast;
 
-  while (fast != NULL && fast->next != NULL)
-  {
-    slow = slow->next;
-    fast = fast->next->next;
+	if (list == NULL || list->next == NULL)
+		return (0);
 
-    if (slow == fast)
-    {
-      return 1;
-    }
-  }
+	slow = list->next;
+	fast = list->next->next;
 
-  return 0;
+	while (slow && fast && fast->next)
+	{
+		if (slow == fast)
+			return (1);
+
+		slow = slow->next;
+		fast = fast->next->next;
+	}
+
+	return (0);
 }
